@@ -31,6 +31,7 @@ source("layout/modal.R", local = isLocal)
 source("pages/pilares/pdi_resumen.R", local = isLocal)
 source("pages/pilares/pdi_resultados.R", local = isLocal)
 source("pages/pilares/pdi_protocolos.R", local = isLocal)
+source("pages/pilares/pdi_general.R", local = isLocal)
 
 options(encoding='UTF-8')
 options(shiny.autoreload=T)
@@ -55,7 +56,8 @@ ui <- tags$body(
       div(class="section-content tab-content",
           templatePDI_Resumen,
           templatePDI_Resultados,
-          templatePDI_Protocolos
+          templatePDI_Protocolos,
+          templatePDI_General,
       ),
       Footer,
     )

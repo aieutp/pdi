@@ -24,8 +24,14 @@ corte_seleccionado <- reactive({
   
 })
 
+# browser()
+
 # CARGAR DATOS ####
 data_pdi_estructura <- cargar_consulta_anio('pdi_estructura', id_plan %>% pull(consulta) %>% toString())
+
+# data_pdi_estructura <- data_pdi_estructura %>% 
+#   filter(!str_detect(DISPLAY_NAME, "IMPULSOR"),
+#          !str_detect(PROGRAMA, "IMPULSOR"))
 
 data_pdi_resumen_sheet <- read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vT3p4vO0oJo-efGC4M1eZ4vOgITQ4zf2ac7otuq6fuWtEYD8WsLVho0Aiq0VuYZJwreKYHDgv4l1ieY/pub?gid=0&single=true&output=csv")
 data_pdi_presupuesto_sheet <- read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vT3p4vO0oJo-efGC4M1eZ4vOgITQ4zf2ac7otuq6fuWtEYD8WsLVho0Aiq0VuYZJwreKYHDgv4l1ieY/pub?gid=653464016&single=true&output=csv")
@@ -38,8 +44,11 @@ data_pdi_protocolos_cambios <- read_xlsx('data/TB_EXTERNO_PDI_PROTOCOLOS.xlsx', 
 
 data_pdi_avances_historico <- read_xlsx('data/TB_EXTERNO_PDI_AVANCES_HISTORICO.xlsx') %>% select(-contains("DATE"))
 
+if (lubridate::month(Sys.Date()) <= 2) {year_label <- lubridate::year(Sys.Date()) - 1} else {year_label <- lubridate::year(Sys.Date())}
+year_label <- as.character(year_label)
+
 data_pdi_avances_actual <- cargar_consulta_anio('pdi_avances', id_plan %>%
-                                                  filter(anio == lubridate::year(Sys.Date())) %>%
+                                                  filter(anio == year_label) %>%
                                                   pull(consulta) %>%
                                                   toString()) %>% select(-contains("DATE"))
 
@@ -49,6 +58,8 @@ data_pdi_avances <- bind_rows(data_pdi_avances_actual, data_pdi_avances_historic
 avances <- data_pdi_avances %>% 
   filter(MILESTONE_VALUE != 0) %>% 
   mutate(PORC_AVANCE_INDICADOR = if_else(ADVANCE_VALUE/MILESTONE_VALUE > 1, 100, round((ADVANCE_VALUE/MILESTONE_VALUE)*100,2)))
+
+# browser()
 
 # AVANCES PROYECTOS Y PLANES OPERATIVOS
 avances_plan_operativo <- avances %>% 

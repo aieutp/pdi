@@ -19,6 +19,7 @@ server <- function(input, output, session) {
   source('server/server_pdi_resumen.R', local = TRUE)
   source('server/server_pdi_resultados.R', local = TRUE)
   source('server/server_pdi_protocolos.R', local = TRUE)
+  source('server/server_pdi_general.R', local = TRUE)
   
   
   observe({
