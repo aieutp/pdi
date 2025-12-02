@@ -29,7 +29,7 @@ filtersSubHeader <- tags$ul(class="nav navbar-nav ml-auto",
   ),
                             
   tags$li(class="nav-item active",
-          sliderInput("select_anio_pilar", "", min = 2020, max = 2024, value = 2024, sep = "",step = 1)
+          sliderInput("select_anio_pilar", "", min = 2020, max = 2025, value = 2025, sep = "",step = 1)
   )
 )
 
@@ -63,9 +63,9 @@ filtersSubHeader <- tags$ul(class="nav navbar-nav ml-auto",
 #                 - Mostrar como activo o inactivo en el menu lateral sideBarMenu en la primera carga
 
 sideBarMenu <- list(
-   list("Resumen del Pilar", "simple", "page_pdi_resumen", "fa-landmark", "active"),
-   list("Resultados del Pilar",  "simple", "page_pdi_resultados", "fa-chart-line", "inactive"),
-   list("Protocolos del Pilar",  "simple", "page_pdi_protocolos", "fa-book", "inactive"),
+   list("Resumen del Pilar", "simple", "page_pdi_resumen", "fa-landmark", "inactive"),
+   list("Resultados del Pilar",  "simple", "page_pdi_resultados", "fa-chart-line", "active"),
+   #list("Protocolos del Pilar",  "simple", "page_pdi_protocolos", "fa-book", "inactive"),
    list("Resultados Generales PDI",  "simple", "page_pdi_general", "fa-chart-pie", "inactive")
 
 )

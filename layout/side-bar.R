@@ -50,6 +50,15 @@ Sidebar <- tags$div(id="sidebar",
             )
           }
         }),
+        tags$li(
+          a(
+            class = "nav-link",
+            href = "http://aie.utp.edu.co/protocolos",
+            target = "_blank",
+            tags$i(class = "fa fa-book"),
+            tags$span(class = "dropdown-option", "Protocolos")
+          )
+        )
       )
     ),
     div(class="sidebar-footer",

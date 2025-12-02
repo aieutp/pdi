@@ -127,6 +127,7 @@ output$texto_DocumentoHTML <- renderText({
 })
 
 output$valuebox_resultado_nivel_pilares <- renderValueBox({
+  
   valor <- avances_tres_niveles %>% 
     filter(PLAN_ID == plan_seleccionado(),
            ID_PILAR == input$select_pilar_gestion,
@@ -268,8 +269,13 @@ output$relacion_eficiencia <- renderEcharts4r({
     
     left_join(avances_proyectos, by = 'PARTY_ID') %>%
     select(PROYECTO, EFICACIA = PORC_AVANCE, PLAN_ID, PARTY_ID, ID_PILAR) %>%
-    distinct() %>% 
-    left_join(data_pdi_presupuesto_sheet %>% filter(PLAN_ID == plan_seleccionado(), ID_PILAR == input$select_pilar_gestion)) %>% 
+    distinct()
+  
+  relacion <- relacion %>% 
+    left_join(data_pdi_presupuesto_sheet %>% 
+                select(-PROYECTO) %>% 
+                filter(PLAN_ID == plan_seleccionado(),  #########
+                                                    ID_PILAR == input$select_pilar_gestion)) %>% #########
     mutate(APROPIACION_DEFINITIVA = parse_number(APROPIACION_DEFINITIVA),
            COMPROMISOS = parse_number(COMPROMISOS),
            EFICIENCIA = 100*COMPROMISOS/APROPIACION_DEFINITIVA) %>% 
@@ -416,7 +422,7 @@ output$relacion_efectividad <- renderEcharts4r({
   
 })
 
-output$tabla_proyectos <- renderDataTable(
+output$tabla_proyectos <- renderDataTable({
   
   datatable(
     
@@ -451,7 +457,11 @@ output$tabla_proyectos <- renderDataTable(
       left_join(avances_proyectos, by = 'PARTY_ID') %>%
       select(PROYECTO, EFICACIA = PORC_AVANCE, PLAN_ID, PARTY_ID, ID_PILAR) %>%
       distinct() %>% 
-      left_join(data_pdi_presupuesto_sheet %>% filter(PLAN_ID == plan_seleccionado(), ID_PILAR == input$select_pilar_gestion)) %>% 
+      left_join(data_pdi_presupuesto_sheet %>% 
+                  filter(PLAN_ID == plan_seleccionado(), 
+                         ID_PILAR == input$select_pilar_gestion) %>% 
+                  select(-PROYECTO) %>% 
+                  mutate(ID_PILAR = as.numeric(ID_PILAR))) %>% 
       mutate(APROPIACION_DEFINITIVA = parse_number(APROPIACION_DEFINITIVA),
              COMPROMISOS = parse_number(COMPROMISOS),
              EFICIENCIA = 100*COMPROMISOS/APROPIACION_DEFINITIVA) %>% 
@@ -472,7 +482,7 @@ output$tabla_proyectos <- renderDataTable(
     )
   ) %>%
     formatStyle(c('EFICIENCIA','EFICACIA','EFECTIVIDAD'), backgroundColor = styleInterval(brks(), clrs))  
-)
+})
 
 
 output$tabla_pilares_impulsores <- renderDataTable(

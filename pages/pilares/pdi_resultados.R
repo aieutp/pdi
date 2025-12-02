@@ -25,7 +25,7 @@
 
 
 pageId <- "page_pdi_resultados"   # <<=== IMPORTANTE! Este id es usado en sideBarMenu
-firstPageToShow <- FALSE     # <<=== IMPORTANTE! Esta variable hace que esta página sea la primera que se visualice
+firstPageToShow <- TRUE     # <<=== IMPORTANTE! Esta variable hace que esta página sea la primera que se visualice
 
 
 if (firstPageToShow) showActivate <- "show active" else showActivate <- ""
@@ -66,7 +66,7 @@ templatePDI_Resultados <- div(  # <<=== IMPORTANTE! Esta es la variable que se d
   
   
   div(class="section",
-      div("data-aos"="fade-up", "data-aos-once"="false",
+      div("data-aos-once"="false",
 
           h3(class="mb-4", "Resultados generales del pilar"), 
           fluidRow(

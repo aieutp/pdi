@@ -24,13 +24,13 @@ source("layout/side-bar.R", local = isLocal)
 source("layout/footer.R", local = isLocal)
 source("layout/footer-imports.R", local = isLocal)
 source("layout/modal.R", local = isLocal)
-
+ 
 # Importación de páginas ligadas al sideBarMenu. Estas páginas se encuentran en la
 # carpeta "pages" en la raiz del proyecto.
 
 source("pages/pilares/pdi_resumen.R", local = isLocal)
 source("pages/pilares/pdi_resultados.R", local = isLocal)
-source("pages/pilares/pdi_protocolos.R", local = isLocal)
+#source("pages/pilares/pdi_protocolos.R", local = isLocal)
 source("pages/pilares/pdi_general.R", local = isLocal)
 
 options(encoding='UTF-8')
@@ -56,7 +56,6 @@ ui <- tags$body(
       div(class="section-content tab-content",
           templatePDI_Resumen,
           templatePDI_Resultados,
-          templatePDI_Protocolos,
           templatePDI_General,
       ),
       Footer,

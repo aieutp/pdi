@@ -150,6 +150,7 @@ output$tabla_tres_niveles_general <- renderDataTable(
 
 
 output$valuebox_resultado_nivel_pilares_general <- renderValueBox({
+  
   valor <- avances_tres_niveles %>%
     filter(PLAN_ID == plan_seleccionado(),
            #ID_PILAR == input$select_pilar_gestion,
@@ -294,7 +295,9 @@ output$relacion_eficiencia_general <- renderEcharts4r({
     left_join(avances_proyectos, by = 'PARTY_ID') %>%
     select(PROYECTO, EFICACIA = PORC_AVANCE, PLAN_ID, PARTY_ID, ID_PILAR) %>%
     distinct() %>%
-    left_join(data_pdi_presupuesto_sheet %>% filter(PLAN_ID == plan_seleccionado()#, ID_PILAR == input$select_pilar_gestion
+    left_join(data_pdi_presupuesto_sheet %>% 
+                select(-PROYECTO) %>% 
+                filter(PLAN_ID == plan_seleccionado()#, ID_PILAR == input$select_pilar_gestion
                                                     )) %>%
     mutate(APROPIACION_DEFINITIVA = parse_number(APROPIACION_DEFINITIVA),
            COMPROMISOS = parse_number(COMPROMISOS),
@@ -389,7 +392,9 @@ output$relacion_efectividad_general <- renderEcharts4r({
     left_join(avances_proyectos, by = 'PARTY_ID') %>%
     select(PROYECTO, EFICACIA = PORC_AVANCE, PLAN_ID, PARTY_ID, ID_PILAR) %>%
     distinct() %>%
-    left_join(data_pdi_presupuesto_sheet %>% filter(PLAN_ID == plan_seleccionado()#, ID_PILAR == input$select_pilar_gestion
+    left_join(data_pdi_presupuesto_sheet %>% 
+                select(-PROYECTO) %>% 
+                filter(PLAN_ID == plan_seleccionado()#, ID_PILAR == input$select_pilar_gestion
     )) %>%
     mutate(APROPIACION_DEFINITIVA = parse_number(APROPIACION_DEFINITIVA),
            COMPROMISOS = parse_number(COMPROMISOS),
@@ -477,7 +482,9 @@ output$tabla_proyectos_general <- renderDataTable(
       left_join(avances_proyectos, by = 'PARTY_ID') %>%
       select(PROYECTO, EFICACIA = PORC_AVANCE, PLAN_ID, PARTY_ID, ID_PILAR) %>%
       distinct() %>%
-      left_join(data_pdi_presupuesto_sheet %>% filter(PLAN_ID == plan_seleccionado())) %>%
+      left_join(data_pdi_presupuesto_sheet %>% 
+                  select(-PROYECTO) %>% 
+                  filter(PLAN_ID == plan_seleccionado())) %>%
       mutate(APROPIACION_DEFINITIVA = parse_number(APROPIACION_DEFINITIVA),
              COMPROMISOS = parse_number(COMPROMISOS),
              EFICIENCIA = 100*COMPROMISOS/APROPIACION_DEFINITIVA) %>%

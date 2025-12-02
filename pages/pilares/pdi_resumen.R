@@ -25,7 +25,7 @@
 
 
 pageId <- "page_pdi_resumen"   # <<=== IMPORTANTE! Este id es usado en sideBarMenu
-firstPageToShow <- TRUE     # <<=== IMPORTANTE! Esta variable hace que esta página sea la primera que se visualice
+firstPageToShow <- FALSE     # <<=== IMPORTANTE! Esta variable hace que esta página sea la primera que se visualice
 
 
 if (firstPageToShow) showActivate <- "show active" else showActivate <- ""
